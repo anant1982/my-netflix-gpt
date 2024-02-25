@@ -11,6 +11,7 @@ import { auth } from "../utils/firebase";
 import { addUser } from "../utils/slice/userSlice";
 import { useDispatch } from "react-redux";
 import { USER_AVATAR } from "../utils/constants";
+import Footer from "./Footer";
 const Login = () => {
 	const [isSignInForm, setIsSignInForm] = useState(true);
 	const [errorMessage, setErrorMessage] = useState(null);
@@ -84,11 +85,11 @@ const Login = () => {
 	};
 	return (
 		<div className="relative text-white min-h-full z-0 bg-black">
-			<div className="absolute bg-cover block h-full min-h-screen overflow-hidden w-full z-[-1] opacity-50">
+			<div className="relative bg-cover block h-full min-h-full overflow-hidden w-full z-[-1] opacity-50">
 				<img src={LOGIN_BG_IMG} alt="logo" />
 			</div>
 			<Header />
-			<div className="bg-transparent relative m-[0_auto] max-w-[450px] min-h-screen flex items-center justify-center">
+			<div className="bg-transparent absolute right-0 left-0 top-0 m-[0_auto] max-w-[450px] min-h-[calc(100%_-_356px)] flex items-center justify-center">
 				<div className="bg-black bg-opacity-75 p-16 box-border rounded-md">
 					<div>
 						<h1 className="text-3xl mb-6">
@@ -140,6 +141,7 @@ const Login = () => {
 					</p>
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 };
