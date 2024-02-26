@@ -9,7 +9,7 @@ const Footer = () => {
 	const fullYear = new Date();
 	return (
 		<div className="min-h-48 bg-black bg-opacity-70 text-gray-400 py-16">
-			<div className="max-w-6xl mx-auto">
+			<div className="min-[1200px]:max-w-6xl mx-auto max-[991px]:px-5">
 				<div className="mb-5">
 					<ul className="flex">
 						<li className="mb-4 mr-4">
@@ -34,7 +34,7 @@ const Footer = () => {
 						</li>
 					</ul>
 				</div>
-				<div className="grid grid-cols-4 text-sm gap-3">
+				<div className="grid grid-cols-4 text-sm gap-3 max-[767px]:grid-flow-col max-[767px]:grid-cols-2 max-[767px]:grid-rows-2 max-[767px]:gap-6">
 					<div>
 						<ul>
 							<li className="mb-4">

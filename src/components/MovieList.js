@@ -1,11 +1,10 @@
 import MovieCard from "./MovieCard";
 
 const MovieList = ({ title, movies }) => {
-	console.log(movies);
 	return (
 		<div className="overflow-hidden">
-			<h1 className="text-white text-2xl font-bold mb-5">{title}</h1>
-			<div className="overflow-x-scroll flex pb-8">
+			<h1 className="text-white text-xl md:text-2xl font-bold mb-5">{title}</h1>
+			<div className="overflow-x-scroll flex mb-8">
 				<div className="flex flex-auto">
 					{movies?.map((movie) => (
 						<MovieCard

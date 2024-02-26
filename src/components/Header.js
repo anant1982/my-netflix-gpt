@@ -1,15 +1,25 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { addUser, removeUser } from "../utils/slice/userSlice";
 import { auth } from "../utils/firebase";
 import { USER_AVATAR } from "../utils/constants";
+import { toggleSearchView } from "../utils/slice/gptSlice";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const Header = () => {
+	const [isOpenMenu, setIsOpenMenu] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const user = useSelector((store) => store.user);
+	const gptSearchView = useSelector((store) => store.gpt.showGPTSearchView);
+	const toggleOpenMenu = () => {
+		setIsOpenMenu(!isOpenMenu);
+	};
+	const handleGPTSearchView = () => {
+		dispatch(toggleSearchView());
+	};
 	const handleSignOut = () => {
 		signOut(auth)
 			.then(() => {})
@@ -44,11 +54,11 @@ const Header = () => {
 			<div>
 				<Link
 					to="/"
-					className="h-[90px] ml-11 leading-[90px] align-middle flex items-center">
+					className="h-[90px] ml-11 leading-[90px] align-middle flex items-center max-[767px]:ml-6">
 					<svg
 						viewBox="0 0 111 30"
 						data-uia="netflix-logo"
-						className="w-[167px] h-[45px] fill-red-600 align-middle"
+						className="w-[167px] h-[45px] fill-red-600 align-middle max-[767px]:w-[120px]"
 						aria-hidden="true"
 						focusable="false">
 						<g id="netflix-logo">
@@ -61,15 +71,52 @@ const Header = () => {
 				</Link>
 			</div>
 			{user && (
-				<div className="flex items-center pr-10">
-					<img
-						className="hidden md:block w-8 h-8 mr-4"
-						alt="usericon"
-						src={USER_AVATAR}
-					/>
-					<button onClick={handleSignOut} className="font-bold text-white">
-						Sign Out
+				<div>
+					<button
+						className="w-8 h-8 min-[992px]:hidden mr-6"
+						onClick={toggleOpenMenu}>
+						<RxHamburgerMenu className="w-8 h-8 text-white" />
 					</button>
+					<div className="min-[992px]:hidden">
+						{isOpenMenu && (
+							<div className="flex items-center pr-10 max-[991px]:pr-0 max-[991px]:flex-col max-[991px]:absolute max-[991px]:right-0 max-[991px]:bottom-[-60px] max-[991px]:items-start">
+								<button
+									className="py-2 px-5 bg-pink-600 text-white rounded-lg mr-6 text-sm max-[767px]:px-4 max-[767px]:mr-4 max-[767px]:text-sm"
+									onClick={handleGPTSearchView}>
+									{gptSearchView ? "Homepage" : "GPT Search"}
+								</button>
+								<div className="max-[991px]:flex max-[991px]:items-center max-[991px]:mt-3">
+									<img
+										className="hidden md:block w-8 h-8 mr-4"
+										alt="usericon"
+										src={USER_AVATAR}
+									/>
+									<button
+										onClick={handleSignOut}
+										className="font-bold text-white max-[991px]:text-sm max-[767px]:mt-3">
+										Sign Out
+									</button>
+								</div>
+							</div>
+						)}
+					</div>
+					<div className="max-[991px]:hidden flex items-center pr-10">
+						<button
+							className="py-2 px-5 bg-pink-600 text-white rounded-lg mr-6 text-sm"
+							onClick={handleGPTSearchView}>
+							{gptSearchView ? "Homepage" : "GPT Search"}
+						</button>
+						<div className="flex items-center">
+							<img
+								className="hidden md:block w-8 h-8 mr-4"
+								alt="usericon"
+								src={USER_AVATAR}
+							/>
+							<button onClick={handleSignOut} className="font-bold text-white">
+								Sign Out
+							</button>
+						</div>
+					</div>
 				</div>
 			)}
 		</div>

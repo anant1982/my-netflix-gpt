@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 
 const SecondaryContainer = () => {
 	const moviesData = useSelector((store) => store.movies);
-	console.log(moviesData?.topRatedMovies);
 	return (
-		<div className="pl-20 -mt-48 relative z-10">
+		<div className="lg:pl-20 pl-5 -mt-48 relative z-10 pb-8 max-[991px]:mt-8">
 			<MovieList
 				title="Popular Hindi Movies"
 				movies={moviesData?.popularHindiMovies}
@@ -28,8 +27,6 @@ const SecondaryContainer = () => {
 				movies={moviesData?.upComingMovies}
 			/>
 			<MovieList title="Popular TV Shows" movies={moviesData?.popularTVShows} />
-			{/* <MovieList title="Tamil" movies={moviesData?.nowPlayingMovies} />
-			<MovieList title="Hollywood" movies={moviesData?.nowPlayingMovies} /> */}
 		</div>
 	);
 };
